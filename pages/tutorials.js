@@ -1,11 +1,12 @@
-import Head from 'next/head'
+import React from 'react'
 import Navbar from '../Components/Navbar'
+import Head from 'next/head'
 
-export default function Home() {
+const tutorials = () => {
   return (
     <div>
       <Head>
-        <title>NextJS with Redux</title>
+        <title>Tutorial</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -16,3 +17,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default tutorials
