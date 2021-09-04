@@ -12,6 +12,7 @@ const add = () => {
 
       <main>
         <Navbar />
+        Add
       </main>
       
     </div>

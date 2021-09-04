@@ -12,6 +12,7 @@ const tutorials = () => {
 
       <main>
         <Navbar />
+        Tutorials
       </main>
       
     </div>

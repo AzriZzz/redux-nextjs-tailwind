@@ -11,6 +11,7 @@ export default function Home() {
 
       <main>
         <Navbar />
+        Index
       </main>
       
     </div>
