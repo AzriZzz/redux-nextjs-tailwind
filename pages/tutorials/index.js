@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Components/Navbar'
+import Navbar from '../../Components/Navbar'
 import Head from 'next/head'
 
 const tutorials = () => {
@@ -12,7 +12,11 @@ const tutorials = () => {
 
       <main>
         <Navbar />
-        Tutorials
+        <section className="w-10/12 mx-auto max-w-screen-2xl">
+          <div className="pt-10">
+            <h1 className='text-3xl'>Tutorials Page</h1>
+          </div>
+        </section>
       </main>
       
     </div>
