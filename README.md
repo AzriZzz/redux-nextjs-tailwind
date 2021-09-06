@@ -1,5 +1,4 @@
 # NextJS with Redux + Rest API (Rest API Generator) + TailwindCSS
-
 ## RRWRA - React Redux with Rest API
 
 How to connect with our REST API?
@@ -9,7 +8,11 @@ This will help to understand redux concept faster rather than putting our time t
 own backend. Only use website to create your REST API if you're focusing more on Frontend side.
 
 Link : https://retool.com/api-generator/
-<br><br>
+
+<span style='color:red'>Warning: Your sample API may be deleted if it has not been used in the last 30 days.</span>
+<br>
+###### Note: (Ctrl + Shift + M) to preview our markdown file in VSCode.
+
 ### Build Your Own Dataset
 
 | Column Title | Data Type|
