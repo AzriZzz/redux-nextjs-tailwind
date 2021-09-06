@@ -9,16 +9,37 @@ This will help to understand redux concept faster rather than putting our time t
 own backend. Only use website to create your REST API if you're focusing more on Frontend side.
 
 Link : https://retool.com/api-generator/
-
+<br><br>
 ### Build Your Own Dataset
 
 | Column Title | Data Type|
 | :---: | :---: |
-| id | number |
-| title | string |
-| description | string |
-| published | string |
-| status | boolean |
+| id | Number / Post ID |
+| title | People / Interest |
+| description | Misc / Lorem Ipsum |
+| publishedStatus | Boolean |
+| createdDate | Dates |
+| publishedDate | Dates |
+
+<br>
+
+#### Generated API Endpoint : https://retoolapi.dev/gZ3Hii/reduxAPI
+
+<br>
+
+### Example Endpoint Created Using 'retool'
+| Methods | URLs |
+| :---: | :---: |
+| GET | /gZ3Hii/reduxAPI |
+| GET filter | /gZ3Hii/reduxAPI?title=value |
+| GET by id | /gZ3Hii/reduxAPI/1 |
+| GET paginate | /gZ3Hii/reduxAPI?_page=2&_limit=10 |
+| POST | /gZ3Hii/reduxAPI |
+| PUT | /gZ3Hii/reduxAPI/1 |
+| PATCH | /gZ3Hii/reduxAPI/1 |
+| DELETE | /gZ3Hii/reduxAPI/1 |
+
+<br>
 
 ### React Client consumes the following Web API:
 
