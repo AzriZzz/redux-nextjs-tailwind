@@ -12,7 +12,6 @@ const tutorials = ({ endpoint }) => {
 
 
   const selectedTutorial = (key) => {
-    console.log(key);
     const { title, description, publishedStatus } = key;
 
     const dataObject = {
@@ -53,10 +52,13 @@ const tutorials = ({ endpoint }) => {
           </div>
           <div className="w-1/5 pt-10 lg:w-1/3">
             <h1 className="pb-10 text-3xl font-semibold">Selected Tutorials</h1>
-            {items.length}
-            <h4>Title: Selected</h4>
-            <p>Description: Lorem Ipsum Del Amet</p>
-            <span>Status: Pending</span>
+            {items?.map( ({title, description,publishedStatus }) => (
+              <div>
+                <h4>Title: {title}</h4>
+                <p>Description: {description}</p>
+                <span>Status: {publishedStatus ? 'Pending' : 'Published'}</span>
+              </div>
+            ))}
           </div>
         </section>
       </main>

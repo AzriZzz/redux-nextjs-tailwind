@@ -11,7 +11,7 @@ export const tutorialSlice = createSlice({
     // Action
     addToTutorial: (state, action) => {
       console.log(state, action)
-      state.items = [...state.items, action.payload];
+      state.items = [action.payload];
     },
   }
 })
