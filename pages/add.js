@@ -5,23 +5,32 @@ import Head from "next/head";
 const add = () => {
   const registerUser = async (event) => {
     event.preventDefault();
-    alert("You have subscribed!");
+    // alert("You have subscribed!");
+    console.log(event.target.title.value);
+    const title = event.target.title.value;
+    const description = event.target.description.value
+    const publishedStatus = false;
+    const createdDate = (new Date()).toString();
+    const publishedDate = (new Date()).toString();
+    const res = await fetch(
+      "https://retoolapi.dev/gZ3Hii/reduxAPI",
+      {
+        body: JSON.stringify({
+          title,
+          description,
+          publishedStatus,
+          createdDate,
+          publishedDate,          
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      }
+    );
 
-    // const res = await fetch(
-    //   "https://hooks.zapier.com/hooks/catch/123456/abcde",
-    //   {
-    //     body: JSON.stringify({
-    //       name: event.target.name.value,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     method: "POST",
-    //   }
-    // );
-
-    // const result = await res.json();
-    // result.user => 'Ada Lovelace'
+    const result = await res.json();
+    console.log(result);
   };
   return (
     <div>

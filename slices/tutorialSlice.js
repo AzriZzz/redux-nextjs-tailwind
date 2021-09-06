@@ -8,9 +8,12 @@ export const tutorialSlice = createSlice({
   name: 'tutorial',
   initialState,
   reducers: {
-    // Action
+    // Action - 
+    // 1. merely a function that returns an action object
+    // 2. only source of information for the store
+
+    // purpose: only save only 1 object inside state
     selectTutorial: (state, action) => {
-      console.log(action.payload)
       state.items = [action.payload];
     },
   }
@@ -18,8 +21,7 @@ export const tutorialSlice = createSlice({
 
 export const { selectTutorial } = tutorialSlice.actions;
 
-// Selector
+// Selector - function that accepts Redux state as an argument
 export const selectItems = (state) => state.tutorial.items;
-
 
 export default tutorialSlice.reducer;

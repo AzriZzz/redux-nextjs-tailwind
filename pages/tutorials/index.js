@@ -58,7 +58,7 @@ const tutorials = ({ endpoint }) => {
               </div>
             ) : (
               items?.map(({ title, description, publishedStatus }) => (
-                <div>
+                <div key={`${title}${publishedStatus}`}>
                   <h4 className="py-3 text-xl">
                     <span className="font-semibold">Title:</span> {title}
                   </h4>
