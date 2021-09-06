@@ -31,14 +31,14 @@ const tutorials = ({ endpoint }) => {
 
       <main>
         <Navbar />
-        <section className="flex w-10/12 mx-auto max-w-screen-2xl">
-          <div className="w-4/5 pt-10">
-            <h1 className="pb-10 text-3xl font-semibold">Tutorials List</h1>
-            <div className="w-full bg-white rounded-lg shadow-lg lg:w-4/5 lg:mr-10">
+        <section className="flex justify-center w-10/12 mx-auto max-w-screen-2xl">
+          <div className="w-1/3 pt-10">
+            <h1 className="pb-10 text-3xl font-bold">Tutorials List</h1>
+            <div className="w-full bg-white rounded-lg shadow-lg lg:w-5/5 lg:mr-10">
               <ul className="divide-y-2 divide-gray-100 ">
                 {endpoint.map((key) => (
                   <li
-                    className="p-3 mb-2 cursor-pointer hover:bg-blue-600 hover:text-blue-200"
+                    className="p-3 mb-2 text-xl cursor-pointer hover:bg-blue-600 hover:text-blue-200"
                     key={key.id}
                     onClick={() => selectedTutorial(key)}
                   >
@@ -48,22 +48,33 @@ const tutorials = ({ endpoint }) => {
               </ul>
             </div>
           </div>
-          <div className="w-1/5 pt-10 lg:w-1/3">
-            <h1 className="pb-10 text-3xl font-semibold">Selected Tutorials</h1>
+          <div className="w-1/3 pt-10 pl-10 lg:w-1/3">
+            <h1 className="pb-10 text-3xl font-bold">Selected Tutorials</h1>
             {items.length === 0 ? (
               <div>
-                <h4>Title:</h4>
-                <p>Description: </p>
-                <span>Status: </span>
+                <h4 className="py-3 text-xl font-semibold">Title:</h4>
+                <p className="py-3 text-xl font-semibold">Description: </p>
+                <span className="py-3 text-xl font-semibold">Status: </span>
               </div>
             ) : (
               items?.map(({ title, description, publishedStatus }) => (
                 <div>
-                  <h4>Title: {title}</h4>
-                  <p>Description: {description}</p>
-                  <span>
-                    Status: {publishedStatus ? "Pending" : "Published"}
+                  <h4 className="py-3 text-xl">
+                    <span className="font-semibold">Title:</span> {title}
+                  </h4>
+                  <p className="py-3 text-xl">
+                    <span className="font-semibold">Description: </span>{" "}
+                    {description}
+                  </p>
+                  <span className="py-3 text-xl">
+                    <span className="font-semibold">Status: </span>
+                    {publishedStatus ? "Pending" : "Published"}
                   </span>
+                  <div className='pt-5'>
+                    <button className="w-12 p-2 text-black bg-yellow-300 rounded-lg ">
+                      Edit
+                    </button>
+                  </div>
                 </div>
               ))
             )}
