@@ -9,14 +9,14 @@ export const tutorialSlice = createSlice({
   initialState,
   reducers: {
     // Action
-    addToTutorial: (state, action) => {
-      console.log(state, action)
+    selectTutorial: (state, action) => {
+      console.log(action.payload)
       state.items = [action.payload];
     },
   }
 })
 
-export const { addToTutorial } = tutorialSlice.actions;
+export const { selectTutorial } = tutorialSlice.actions;
 
 // Selector
 export const selectItems = (state) => state.tutorial.items;
