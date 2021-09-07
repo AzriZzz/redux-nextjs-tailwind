@@ -1,23 +1,23 @@
 import React from "react";
 import Navbar from "../../Components/Navbar";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
-import { selectTutorial } from "../../slices/tutorialSlice";
-import { selectItems } from "../../slices/tutorialSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTutorial, selectItems } from "../../slices/tutorialSlice";
+import Link from "next/link";
 
 const tutorials = ({ endpoint }) => {
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
 
   const selectedTutorial = (key) => {
-    const { title, description, publishedStatus, updatedDate } = key;
+    const { id, title, description, publishedStatus, updatedDate } = key;
 
     const dataObject = {
+      id,
       title,
       description,
       publishedStatus,
-      updatedDate
+      updatedDate,
     };
 
     dispatch(selectTutorial(dataObject));
@@ -59,30 +59,34 @@ const tutorials = ({ endpoint }) => {
                 <span className="py-3 text-xl font-semibold">Status: </span>
               </div>
             ) : (
-              items?.map(( { title, description, publishedStatus, updatedDate }) => (
-                <div key={`${title}${publishedStatus}`}>
-                  <h4 className="py-3 text-xl">
-                    <span className="font-semibold">Title:</span> {title}
-                  </h4>
-                  <p className="py-3 text-xl">
-                    <span className="font-semibold">Description: </span>{" "}
-                    {description}
-                  </p>
-                  <div className="py-3 text-xl">
-                    <span className="font-semibold">Last Update: </span>
-                    {updatedDate}
+              items?.map(
+                ({ id, title, description, publishedStatus, updatedDate }) => (
+                  <div key={`${title}${publishedStatus}`}>
+                    <h4 className="py-3 text-xl">
+                      <span className="font-semibold">Title:</span> {title}
+                    </h4>
+                    <p className="py-3 text-xl">
+                      <span className="font-semibold">Description: </span>{" "}
+                      {description}
+                    </p>
+                    <div className="py-3 text-xl">
+                      <span className="font-semibold">Last Update: </span>
+                      {updatedDate}
+                    </div>
+                    <div className="py-3 text-xl">
+                      <span className="font-semibold">Status: </span>
+                      {publishedStatus ? "Published" : "Pending"}
+                    </div>
+                    <div className="pt-5">
+                      <Link href={`/tutorials/${id}`}>
+                        <button className="w-12 p-2 text-black bg-yellow-300 rounded-lg ">
+                          Edit
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="py-3 text-xl">
-                    <span className="font-semibold">Status: </span>
-                    {publishedStatus ? "Published" : "Pending"}
-                  </div>
-                  <div className='pt-5'>
-                    <button className="w-12 p-2 text-black bg-yellow-300 rounded-lg ">
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              ))
+                )
+              )
             )}
           </div>
         </section>
