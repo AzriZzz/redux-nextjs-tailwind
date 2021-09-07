@@ -1,36 +1,32 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
 import Head from "next/head";
+import * as moment from 'moment';
 
 const add = () => {
   const registerUser = async (event) => {
     event.preventDefault();
-    // alert("You have subscribed!");
-    console.log(event.target.title.value);
-    const title = event.target.title.value;
-    const description = event.target.description.value
-    const publishedStatus = false;
-    const createdDate = (new Date()).toString();
-    const publishedDate = (new Date()).toString();
-    const res = await fetch(
-      "https://retoolapi.dev/gZ3Hii/reduxAPI",
-      {
-        body: JSON.stringify({
-          title,
-          description,
-          publishedStatus,
-          createdDate,
-          publishedDate,          
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      }
-    );
 
-    const result = await res.json();
-    console.log(result);
+    const title = event.target.title.value;
+    const description = event.target.description.value;
+    const publishedStatus = false;
+    const createdDate = moment().format('MMM Do YYYY, h:mm A');
+    const updatedDate = moment().format('MMM Do YYYY, h:mm A');
+
+    const res = await fetch("https://retoolapi.dev/gZ3Hii/reduxAPI", {
+      body: JSON.stringify({
+        title,
+        description,
+        publishedStatus,
+        createdDate,
+        updatedDate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    // const result = await res.json();
   };
   return (
     <div>

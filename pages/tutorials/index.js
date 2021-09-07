@@ -11,12 +11,13 @@ const tutorials = ({ endpoint }) => {
   const items = useSelector(selectItems);
 
   const selectedTutorial = (key) => {
-    const { title, description, publishedStatus } = key;
+    const { title, description, publishedStatus, updatedDate } = key;
 
     const dataObject = {
       title,
       description,
       publishedStatus,
+      updatedDate
     };
 
     dispatch(selectTutorial(dataObject));
@@ -54,10 +55,11 @@ const tutorials = ({ endpoint }) => {
               <div>
                 <h4 className="py-3 text-xl font-semibold">Title:</h4>
                 <p className="py-3 text-xl font-semibold">Description: </p>
+                <p className="py-3 text-xl font-semibold">Last Update: </p>
                 <span className="py-3 text-xl font-semibold">Status: </span>
               </div>
             ) : (
-              items?.map(({ title, description, publishedStatus }) => (
+              items?.map(( { title, description, publishedStatus, updatedDate }) => (
                 <div key={`${title}${publishedStatus}`}>
                   <h4 className="py-3 text-xl">
                     <span className="font-semibold">Title:</span> {title}
@@ -66,10 +68,14 @@ const tutorials = ({ endpoint }) => {
                     <span className="font-semibold">Description: </span>{" "}
                     {description}
                   </p>
-                  <span className="py-3 text-xl">
+                  <div className="py-3 text-xl">
+                    <span className="font-semibold">Last Update: </span>
+                    {updatedDate}
+                  </div>
+                  <div className="py-3 text-xl">
                     <span className="font-semibold">Status: </span>
-                    {publishedStatus ? "Pending" : "Published"}
-                  </span>
+                    {publishedStatus ? "Published" : "Pending"}
+                  </div>
                   <div className='pt-5'>
                     <button className="w-12 p-2 text-black bg-yellow-300 rounded-lg ">
                       Edit
