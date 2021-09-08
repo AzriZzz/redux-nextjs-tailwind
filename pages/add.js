@@ -4,7 +4,7 @@ import Head from "next/head";
 import * as moment from 'moment';
 
 const add = () => {
-  const registerUser = async (event) => {
+  const addTutorial = async (event) => {
     event.preventDefault();
 
     const title = event.target.title.value;
@@ -44,7 +44,7 @@ const add = () => {
             <div className="w-full pt-5 submit-form">
               <form
                 className="flex flex-col items-start w-full h-40"
-                onSubmit={registerUser}
+                onSubmit={addTutorial}
               >
                 <label htmlFor="title" className="py-2 text-xl">
                   Title
