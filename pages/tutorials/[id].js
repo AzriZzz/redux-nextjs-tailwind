@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "../../Components/Navbar";
-import * as moment from 'moment';
+import * as moment from "moment";
+import { useRouter } from 'next/router'
+import { useDispatch } from "react-redux";
+import { selectTutorial } from "../../slices/tutorialSlice";
 
 const TutorialEdit = ({ data }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+
   const { title, description, createdDate, updatedDate, publishedStatus, id } =
     data;
+  const [tutorId, setTutorId] = useState(id);
   const [titleInput, setTitleInput] = useState(title);
   const [descriptionInput, setDescriptionInput] = useState(description);
   const [status, setStatus] = useState(publishedStatus);
@@ -39,41 +47,82 @@ const TutorialEdit = ({ data }) => {
       method: "PUT",
     });
     const result = await res.json();
-
+    console.log(result);
     setStatus(true);
-    console.log("update result :", result);
+    alert(`Title: '${title}' with ID:${id} has been published.`)
+
   };
 
-  // const updateTutorial = async () => {
-  //   event.preventDefault();
-  //   console.log("update tutorial");
+  const confirmationUpdate = () => {
+    window.confirm("Are you sure you wish to update this tutorial?") &&
+    updateTutorial(`${tutorId}`);
+  }
 
-  //   const title = titleInput
-  //   const description = descriptionInput
-  //   const publishedStatus = status;
-  //   const createdDate = createdDate;
-  //   const updatedDate = moment().format('MMM Do YYYY, h:mm A');
+  const updateTutorial = async (tutorId) => {
+    console.log("update tutorial");
 
-  //   const res = await fetch(`https://retoolapi.dev/gZ3Hii/reduxAPI${id}`, {
-  //     body: JSON.stringify({
-  //       title,
-  //       description,
-  //       publishedStatus,
-  //       createdDate,
-  //       updatedDate,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     method: "PUT",
-  //   });
-  //   const result = await res.json();
-  // };
+    const title = titleInput
+    const description = descriptionInput
+    const publishedStatus = status;
+    const createdDate = createdDate;
+    const updatedDate = moment().format('MMM Do YYYY, h:mm A');
+
+    const res = await fetch(`https://retoolapi.dev/gZ3Hii/reduxAPI/${tutorId}`, {
+      body: JSON.stringify({
+        title,
+        description,
+        publishedStatus,
+        createdDate,
+        updatedDate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+    });
+    const result = await res.json();
+    console.log(result);
+    dispatch(selectTutorial(result));
+    alert(`Title: '${title}' with ID:${id} has been updated.`)
+    router.push('/tutorials');
+  };
+
+  const confirmationDelete = () => {
+    window.confirm("Are you sure you wish to delete this tutorial?") &&
+      deleteTutorial(`${tutorId}`);
+  };
+
+  const deleteTutorial = async (id) => {
+    const title = titleInput;
+    const description = descriptionInput;
+    const publishedStatus = true;
+    const createdDate = createdDate;
+    const updatedDate = moment().format("MMM Do YYYY, h:mm A");
+
+    const res = await fetch(`https://retoolapi.dev/gZ3Hii/reduxAPI/${id}`, {
+      body: JSON.stringify({
+        title,
+        description,
+        publishedStatus,
+        createdDate,
+        updatedDate,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
+    const result = await res.json();
+    console.log("data delete :", result);
+    dispatch(selectTutorial({}));
+    alert(`Title: ${title} with ID:${id} has been deleted.`)
+    router.push('/tutorials');
+  };
 
   return (
     <div>
       <Head>
-        <title>{`Tutorial ${data.id}`}</title>
+        <title>{`Tutorial ${tutorId}`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -93,7 +142,7 @@ const TutorialEdit = ({ data }) => {
                   name="title"
                   type="text"
                   autoComplete="title"
-                  className="flex-1 p-3 border-2 border-gray-200 rounded-md shadow-inner w-96"
+                  className="flex-1 w-full p-3 border-2 border-gray-200 rounded-md shadow-inner md:w-96"
                   value={titleInput}
                   required
                   onChange={onChangeTitle}
@@ -109,7 +158,7 @@ const TutorialEdit = ({ data }) => {
                   name="description"
                   type="text"
                   autoComplete="description"
-                  className="flex-1 p-3 border-2 border-gray-200 rounded-md shadow-inner w-96"
+                  className="flex-1 w-full p-3 border-2 border-gray-200 rounded-md shadow-inner md:w-96"
                   value={descriptionInput}
                   required
                   onChange={onChangeDescription}
@@ -132,10 +181,13 @@ const TutorialEdit = ({ data }) => {
                     ""
                   )}
 
-                  <button className="p-2 text-white transition ease-out bg-red-500 border-2 border-gray-300 rounded-lg cursor-pointer hover:scale-105">
+                  <button
+                    className="p-2 text-white transition ease-out bg-red-500 border-2 border-gray-300 rounded-lg cursor-pointer hover:scale-105"
+                    onClick={() => confirmationDelete()}
+                  >
                     Delete
                   </button>
-                  <button className="p-2 text-white transition ease-out bg-green-500 border-2 border-gray-300 rounded-lg cursor-pointer hover:scale-105">
+                  <button onClick={() => confirmationUpdate()} className="p-2 text-white transition ease-out bg-green-500 border-2 border-gray-300 rounded-lg cursor-pointer hover:scale-105">
                     Update
                   </button>
                 </div>
