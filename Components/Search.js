@@ -1,7 +1,7 @@
 import React from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { useState } from "react";
-import { saveListTutorial, selectTutorial } from "../slices/tutorialSlice";
+import { selectTutorial, saveFiltered } from "../slices/tutorialSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Search() {
@@ -10,15 +10,20 @@ function Search() {
   const tutorialList = useSelector(selectTutorial);
 
   const onSearch = (e) => {
+    if (!e.currentTarget.value.length) {
+      // clear save filtered, and to re-init the listing back to use original object
+      dispatch(saveFiltered({}));
+    }
     setSearchInput(e.currentTarget.value);
   };
 
   const searchListing = (searchInput) => {
     const lists = tutorialList.payload.tutorial.lists[0];
-    // const list = tutorialList
-    const searchTutorial = lists.filter( tutor => tutor.title === searchInput)
+    const searchTutorial = lists.filter((tutor) =>
+      tutor.title.toLowerCase().includes(searchInput)
+    );
 
-    console.log("search : ", tutorialList, searchTutorial, searchInput);
+    dispatch(saveFiltered(searchTutorial));
   };
 
   return (

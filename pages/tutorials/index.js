@@ -2,13 +2,21 @@ import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTutorial, saveListTutorial, selectItems } from "../../slices/tutorialSlice";
+import { selectTutorial, saveListTutorial, selectItems, searchTutorial } from "../../slices/tutorialSlice";
 import SelectedTutorial from "../../Components/SelectedTutorial";
 import Search from "../../Components/Search";
 
 const tutorials = ({ tutorialList }) => {
+  const originalTutorialList = tutorialList;
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
+  const filteredTutorial = useSelector(searchTutorial);
+  
+  if(filteredTutorial[0] && filteredTutorial[0].length) {
+    tutorialList = filteredTutorial[0]
+  } else {
+    tutorialList = originalTutorialList;
+  }
 
   useEffect(() => {
     dispatch(saveListTutorial(tutorialList));

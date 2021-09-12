@@ -33,5 +33,6 @@ export const { selectTutorial, saveListTutorial, saveFiltered } = tutorialSlice.
 
 // Selector - function that accepts Redux state as an argument
 export const selectItems = (state) => state.tutorial.selected;
+export const searchTutorial = (state) => state.tutorial.filtered;
 
 export default tutorialSlice.reducer;
