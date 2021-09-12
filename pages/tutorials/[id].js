@@ -91,7 +91,7 @@ const TutorialEdit = ({ data }) => {
     }
 
     alert(`Title: '${apiBody.title}' with ID:${tutorId} has been ${message}.`);
-    if (message !== 'published') {
+    if (message !== "published") {
       router.push("/tutorials");
     } else {
       setStatus(true);
