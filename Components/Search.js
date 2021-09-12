@@ -1,22 +1,30 @@
 import React from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { useState } from "react";
+import { saveListTutorial, selectTutorial } from "../slices/tutorialSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Search() {
-  const [searchInput, setSearchInput] = useState('');
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState("");
+  const tutorialList = useSelector(selectTutorial);
 
   const onSearch = (e) => {
     setSearchInput(e.currentTarget.value);
   };
 
   const searchListing = (searchInput) => {
-    console.log('search : ', searchInput);
-  }
+    const lists = tutorialList.payload.tutorial.lists[0];
+    // const list = tutorialList
+    const searchTutorial = lists.filter( tutor => tutor.title === searchInput)
+
+    console.log("search : ", tutorialList, searchTutorial, searchInput);
+  };
 
   return (
     <div>
-      <div className="container flex flex-col items-center justify-center h-40 px-4 sm:px-6 lg:px-8">
-        <h2 className='pb-4 text-3xl font-semibold'>Search</h2>
+      <div className="container flex flex-col items-center justify-center py-10 sm:px-6 lg:px-8">
+        {/* <h2 className='pb-4 text-3xl font-semibold'>Search</h2> */}
         <div className="relative">
           <input
             id="title"
@@ -29,7 +37,10 @@ function Search() {
           <div className="absolute top-4 right-3">
             {" "}
             <i className="z-20 text-gray-400 fa fa-search hover:text-gray-500"></i>{" "}
-            <SearchIcon onClick={() => searchListing(searchInput) } className="hidden h-8 p-2 text-white transition ease-out bg-red-400 rounded-full cursor-pointer md:inline-flex md:mx-2 hover:scale-110 active:scale-100" />
+            <SearchIcon
+              onClick={() => searchListing(searchInput)}
+              className="hidden h-8 p-2 text-white transition ease-out bg-red-400 rounded-full cursor-pointer md:inline-flex md:mx-2 hover:scale-110 active:scale-100"
+            />
           </div>
         </div>
       </div>

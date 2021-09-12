@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
+  selected: [],
+  lists: [],
+  filtered: []
 };
 
 export const tutorialSlice = createSlice({
@@ -14,14 +16,22 @@ export const tutorialSlice = createSlice({
 
     // purpose: only save only 1 object inside state
     selectTutorial: (state, action) => {
-      state.items = [action.payload];
+      state.selected = [action.payload];
     },
+
+    saveListTutorial: (state,action) => {
+      state.lists = [action.payload]
+    },
+
+    saveFiltered: (state,action) => {
+      state.filtered = [action.payload]
+    }
   }
 })
 
-export const { selectTutorial } = tutorialSlice.actions;
+export const { selectTutorial, saveListTutorial, saveFiltered } = tutorialSlice.actions;
 
 // Selector - function that accepts Redux state as an argument
-export const selectItems = (state) => state.tutorial.items;
+export const selectItems = (state) => state.tutorial.selected;
 
 export default tutorialSlice.reducer;

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTutorial, selectItems } from "../../slices/tutorialSlice";
+import { selectTutorial, saveListTutorial, selectItems } from "../../slices/tutorialSlice";
 import SelectedTutorial from "../../Components/SelectedTutorial";
 import Search from "../../Components/Search";
 
 const tutorials = ({ tutorialList }) => {
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
+
+  useEffect(() => {
+    dispatch(saveListTutorial(tutorialList));
+  }, [])
 
   const selectedTutorial = (key) => {
     const { id, title, description, publishedStatus, updatedDate } = key;
@@ -34,11 +38,11 @@ const tutorials = ({ tutorialList }) => {
       <main>
         <Navbar />
         <section className="flex justify-center w-10/12 mx-auto max-w-screen-2xl">
-            <Search />
+          <Search />
         </section>
 
         <section className="flex justify-center w-10/12 mx-auto max-w-screen-2xl">
-          <div className="w-1/3 pt-10">
+          <div className="w-1/3 pt-5">
             <h1 className="pb-10 text-3xl font-semibold">Tutorials List</h1>
             <div className="w-full bg-white rounded-lg shadow-lg lg:w-5/5 lg:mr-10">
               <ul className="divide-y-2 divide-gray-100 ">
@@ -54,7 +58,7 @@ const tutorials = ({ tutorialList }) => {
               </ul>
             </div>
           </div>
-          <div className="w-1/3 pt-10 pl-10 lg:w-1/3">
+          <div className="w-1/3 pt-5 pl-10 lg:w-1/3">
             <h1 className="pb-10 text-3xl font-semibold">Selected Tutorials</h1>
             <SelectedTutorial items={items} />
           </div>
